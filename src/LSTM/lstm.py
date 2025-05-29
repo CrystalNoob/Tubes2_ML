@@ -94,31 +94,3 @@ class LSTMScratch():
 
     def sigmoid(self, x):
         return 1/(1+np.exp(-x))
-
-
-'''
-    def calc(self, x_t: NDArray[np.float64]):
-        w_dot_x = x_t @ self.kernel
-        w_dot_x += self.bias
-        print(w_dot_x)
-        k_i, k_f, k_c, k_o = np.split(w_dot_x, 4, axis=0)
-        w_i, w_f, w_c, w_o = np.split(self.kernel, 4, axis=1)
-        b_i, b_f, b_c, b_o = np.split(self.bias, 4)
-        p_i = x_t @ w_i
-        p_f = x_t @ w_f
-        p_c = x_t @ w_c
-        p_o = x_t @ w_o
-        print("=============")
-        print(k_i)
-        print(k_f)
-        print(k_c)
-        print(k_o)
-        print("ini p")
-        print(p_i+b_i)
-        print(p_f+b_f)
-        print(p_c+b_c)
-        print(p_o+b_o)
-        print()
-        pass
-
-'''
