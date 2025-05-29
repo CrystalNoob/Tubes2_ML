@@ -1,3 +1,5 @@
+import numpy as np
+
 class DenseLayer:
     def __init__(self, W, b, activation=None):
         self.W = W
