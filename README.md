@@ -14,17 +14,17 @@
 ## Table of Contents
 * [General Description](#general-description)
 * [Setup](#setup)
-* [How to Run](#how-to-run)
 * [Links](#links)
 
 ## General Description
-TBA
+Implementasi fungsi forward propagation untuk beberapa arsitektur berikut:
+- CNN
+- Simple RNN
+- LSTM
 
 ## Setup
 Install Python if you didn't have it already. Install packages listed on `requirements.txt` using `pip install -r requirements.txt`. Use a jupyter notebook file opener like VSCode, jupyter served on localhost, or anything else that works for you.
 
-## How to Run
-TBA
 
 ## Group Contribution
 <table>
