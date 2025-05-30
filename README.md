@@ -36,17 +36,17 @@ TBA
     <tr>
       <td>13522088</td>
       <td>Muhamad Rafli Rasyiidin</td>
-      <td>TBA</td>
+      <td>LSTM</td>
     </tr>
     <tr>
       <td>13522094</td>
       <td>Andhika Tantyo Anugrah</td>
-      <td>TBA</td>
+      <td>RNN</td>
     </tr>
     <tr>
       <td>13522100</td>
       <td>M. Hanief Fatkhan Nashrullah</td>
-      <td>TBA</td>
+      <td>CNN</td>
     </tr>
 </table>
 
