@@ -6,38 +6,12 @@ import keras
 import tensorflow as tf
 
 class LSTMScratch():
-    '''
-    units,
-    activation="tanh",
-    recurrent_activation="sigmoid",
-    use_bias=True,
-    kernel_initializer="glorot_uniform",
-    recurrent_initializer="orthogonal",
-    bias_initializer="zeros",
-    unit_forget_bias=True,
-    kernel_regularizer=None,
-    recurrent_regularizer=None,
-    bias_regularizer=None,
-    activity_regularizer=None,
-    kernel_constraint=None,
-    recurrent_constraint=None,
-    bias_constraint=None,
-    dropout=0.0,
-    recurrent_dropout=0.0,
-    seed=None,
-    return_sequences=False,
-    return_state=False,
-    go_backwards=False,
-    stateful=False,
-    unroll=False,
-    use_cudnn="auto",
-    **kwargs
-    '''
     def __init__(
             self,
             units: int, # neuron
             keras_weight: list[Variable],
             activation: Callable[[NDArray[np.float64]], NDArray[np.float64]] = np.tanh, # activation function
+            return_sequences = False
     ):
         # kernel = W, recurrent_kernel = U, bias = b
         # kernel : (input_dim × 4 × units) 
@@ -53,18 +27,20 @@ class LSTMScratch():
         self.kernel, self.recurrent_kernel, self.bias = keras_weight
         self.h_t = []
         self.c_t = []
+        self.h_t_total = []
         self.activation = activation
+        self.return_sequences = return_sequences
 
-    def fit(self, input_feature: NDArray[np.float64]):
-        self.input_feature = input_feature
+    # def fit(self, input_feature: NDArray[np.float64]):
+    #     self.input_feature = input_feature
 
-    def predict(self, input_feature):
+    def forward(self, input_feature):
         if isinstance(input_feature, tf.Tensor):
             input_feature = input_feature.numpy() # type: ignore
         sample = input_feature.shape[0]
         timestep = input_feature.shape[1]
         for i in range(sample):
-            current_sample = input_feature[i]
+            current_sample = input_feature[i].copy()
             self.temp_h = [np.zeros(self.units)]
             self.temp_c = [np.zeros(self.units)]
 
@@ -74,8 +50,13 @@ class LSTMScratch():
                 self.temp_c.append(c_t)
 
             self.h_t.append(self.temp_h[-1])
+            self.h_t_total.append(self.temp_h)
             self.c_t.append(self.temp_c[-1])
-        return self.h_t
+        if self.return_sequences:
+            h_sequences = [np.stack(h[1:], axis=0) for h in self.h_t_total]
+            return np.stack(h_sequences, axis=0)
+        else:
+            return np.array(self.h_t) 
 
     def calc(self, x_t: NDArray[np.float64]):
         w_dot_x = x_t @ self.kernel
